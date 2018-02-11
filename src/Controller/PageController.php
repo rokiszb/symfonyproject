@@ -19,4 +19,15 @@ class PageController extends Controller
             'number' => $number,
         ));
     }
+
+    /**
+     * @Route("/register")
+     */
+    public function registerAction()
+    {
+
+        return $this->render('security/register.html.twig', array(
+            'number' => '2',
+        ));
+    }
 }
