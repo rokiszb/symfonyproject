@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class PageController extends Controller
 {
     /**
-     * @Route("/")
+     * @Route("/", name="index")
      */
     public function indexAction()
     {
@@ -17,17 +17,6 @@ class PageController extends Controller
 
         return $this->render('main/index.html.twig', array(
             'number' => $number,
-        ));
-    }
-
-    /**
-     * @Route("/register")
-     */
-    public function registerAction()
-    {
-
-        return $this->render('security/register.html.twig', array(
-            'number' => '2',
         ));
     }
 }

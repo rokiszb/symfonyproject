@@ -98,6 +98,17 @@ class User implements UserInterface
         $this->password = $password;
     }
 
+    public function getRoles()
+    {
+
+    }
+
+    public function eraseCredentials()
+    {
+
+    }
+
+
     public function getSalt()
     {
         // The bcrypt and argon2i algorithms don't require a separate salt.
