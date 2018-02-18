@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -20,6 +21,19 @@ class User implements UserInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Item", mappedBy="user")
+     */
+    private $items;
+
+    /**
+     * @return Collection|Item[]
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
@@ -54,6 +68,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->isActive = true;
+        $this->items = new ArrayCollection();
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
     }

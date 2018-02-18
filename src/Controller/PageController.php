@@ -13,7 +13,6 @@ class PageController extends Controller
      */
     public function indexAction()
     {
-
         return $this->render('main/homepage.html.twig');
     }
 }

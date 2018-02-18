@@ -1,5 +1,5 @@
 body {
-    font: 400 15px Lato, sans-serif;
+    font: 400 15px Montserrat, sans-serif;;
     line-height: 1.8;
     color: #818181;
 }
@@ -194,4 +194,8 @@ footer .glyphicon {
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
     background-color: #1cb564;
     color: white;
+}
+
+.btn-primary {
+    border-radius: 0;
 }
