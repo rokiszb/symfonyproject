@@ -10,9 +10,9 @@ use App\Entity\Product;
 class ProductController extends Controller
 {
     /**
-     * @Route("/product", name="product")
+     * @Route("/new_item", name="new_item")
      */
-    public function index()
+    public function itemAction()
     {
         // you can fetch the EntityManager via $this->getDoctrine()
         // or you can add an argument to your action: index(EntityManagerInterface $em)

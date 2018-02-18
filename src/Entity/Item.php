@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ItemRepository")
  */
-class Product
+class Item
 {
     /**
      * @ORM\Id
@@ -33,6 +33,17 @@ class Product
      */
     private $price;
 
+    /**
+     * @ORM\Column(type="datetime", name="created_at")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="integer", name="user_id")
+     */
+    private $userId;
+
+
     public function getId()
     {
         return $this->id;
@@ -44,6 +55,11 @@ class Product
     }
 
     public function getName()
+    {
+        return $this->name;
+    }
+
+    public function createdAt()
     {
         return $this->name;
     }

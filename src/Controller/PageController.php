@@ -13,10 +13,7 @@ class PageController extends Controller
      */
     public function indexAction()
     {
-        $number = mt_rand(0, 100);
 
-        return $this->render('main/index.html.twig', array(
-            'number' => $number,
-        ));
+        return $this->render('main/homepage.html.twig');
     }
 }
