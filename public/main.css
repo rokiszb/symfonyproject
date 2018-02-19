@@ -185,17 +185,29 @@ footer .glyphicon {
 .navbar-default .navbar-nav > li > a {
     color: white;
 }
-
 .navbar-nav li a:hover, .navbar-nav li.active a {
     color: rgba(0,0,0, 0.8) !important;
     background-color: #1cb564 !important;
 }
-
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
     background-color: #1cb564;
     color: white;
 }
-
 .btn-primary {
     border-radius: 0;
+}
+.new-item-form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+.no-margins {
+    margin-left: 0;
+    margin-right: 0;
+}
+.table,
+thead tr th {
+    text-align: center;
+}
+.flash-notice {
+    margin-left: 15px;
 }

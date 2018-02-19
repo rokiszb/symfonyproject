@@ -24,7 +24,7 @@ class Item
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="items")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $user;
+    public $user;
 
     public function getUser(): User
     {
@@ -42,12 +42,12 @@ class Item
      */
     private $category;
 
-    public function getCategoryId(): Category
+    public function getCategory(): Category
     {
         return $this->category;
     }
 
-    public function setCategoryId(Category $category)
+    public function setCategory(Category $category)
     {
         $this->category = $category;
     }
@@ -91,6 +91,11 @@ class Item
         return $this->id;
     }
 
+    public function createdAt()
+    {
+        return $this->createdAt;
+    }
+
     public function getDescription()
     {
         return $this->description;
@@ -109,6 +114,11 @@ class Item
     public function setPrice($price)
     {
         $this->price = $price;
+    }
+
+    public function getPrice()
+    {
+        return $this->price;
     }
 
     public function setDescription($description)

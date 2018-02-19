@@ -40,7 +40,7 @@ class RegistrationController extends Controller
                 'Registration succesful!'
             );
 
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('login');
         }
 
         return $this->render(

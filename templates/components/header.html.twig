@@ -18,18 +18,24 @@
             <li><a href="{{ path('index') }}">Home</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">My items</a></li>
-        <li class="add-item"><a title="Add new" href="{{ path('new_item') }}"><i class="fas fa-plus"></i></a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                <li><a href="{{ path('login') }}">Login</a></li>
-                <li><a href="{{ path('user_registration') }}">Register</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-            </ul>
+        {% if is_granted('ROLE_USER') %}
+            <li><a href="{{ path('profile') }}">My items</a></li>
+            <li><a href="javascript:void(0)">{{ app.user.username }}</a>
             </li>
+            <li class="add-item"><a title="Add new" href="{{ path('new_item') }}"><i class="fas fa-plus"></i></a></li>
+        {% endif %}
+        <li class="dropdown">
+
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+            {% if is_granted('ROLE_USER') %}
+            <li><a href="{{ path('logout') }}">Logout</a></li>
+            {% else %}
+            <li><a href="{{ path('login') }}">Login</a></li>
+            <li><a href="{{ path('user_registration') }}">Register</a></li>
+            {% endif %}
+            </ul>
+        </li>
         </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

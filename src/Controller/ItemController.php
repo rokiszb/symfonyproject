@@ -11,9 +11,11 @@ use App\Entity\Category;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use DateTime;
 
 class ItemController extends Controller
 {
@@ -23,11 +25,17 @@ class ItemController extends Controller
     public function itemAction(Request $request)
     {
 
+        $item = new Item;
         $form = $this->createFormBuilder()
-            ->add('name', TextType::class, array('label' => 'Name'))
+            ->add('name', TextType::class, array('label' => 'Item name'))
             ->add('price', MoneyType::class, array('label' => 'Price'))
-            ->add('description', TextType::class, array('label' => 'Description'))
-            ->add('category', Choice::class, array('label' => 'Create Item'))
+            ->add('description', TextareaType::class, array('label' => 'Description'))
+            ->add('category', EntityType::class, array(
+                'class' => Category::class,
+                'choice_label' => function ($category) {
+                    return $category->getTitle();
+                }
+            ))
             ->add('save', SubmitType::class, array('label' => 'Create Item'))
             ->getForm();
 
@@ -35,38 +43,27 @@ class ItemController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $form->getData();
-            $item = new Item;
+            $form = $form->getData();
             $item->setDescription($form['description']);
             $item->setName($form['name']);
             $item->setPrice($form['price']);
-            var_dump($item->getDescription());die();
-            // ... perform some action, such as saving the task to the database
-            // for example, if Task is a Doctrine entity, save it!
+            $item->setCategory($form['category']);
+            $user = $this->getUser();
+            $item->setUser($user);
+            $item->setCreatedAt(new DateTime);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($item);
-            // $em->flush();
-            return $this->redirectToRoute('task_success');
+            $em->flush();
+            $this->addFlash(
+                'notice',
+                'Your item was added!'
+            );
+            return $this->redirectToRoute('index');
         }
 
         return $this->render('main/new_item.html.twig', array(
             'form' => $form->createView(),
         ));
-        // you can fetch the EntityManager via $this->getDoctrine()
-        // or you can add an argument to your action: index(EntityManagerInterface $em)
-        // $em = $this->getDoctrine()->getManager();
-
-        // $item = new Item();
-        // $item->setName('Keyboard');
-        // $item->setPrice(19.99);
-        // $item->setDescription('Ergonomic and stylish!');
-
-        // tell Doctrine you want to (eventually) save the Product (no queries yet)
-        // $em->persist($product);
-
-        // actually executes the queries (i.e. the INSERT query)
-        // $em->flush();
-
-        // return new Response('Saved new product with id '.$product->getId());
     }
 }
